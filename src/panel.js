@@ -1,16 +1,14 @@
-const Button = require('./button');
+import { select } from 'd3-selection';
+import 'd3-selection-multi';
+import 'd3-transition';
 
-const d3 = require('d3-selection');
-require('d3-selection-multi');
-require('d3-transition');
-
-class Panel {
+export default class Panel {
   constructor() {
     this.build();
   }
 
   build() {
-    this.outer = d3.select(document.createElement('div'))
+    this.outer = select(document.createElement('div'))
       .classed('scola panel', true)
       .styles({
         'background': '#EEE',
@@ -92,10 +90,4 @@ class Panel {
   node() {
     return this.outer.node();
   }
-
-  button() {
-    return new Button();
-  }
 }
-
-module.exports = Panel;
