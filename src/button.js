@@ -10,9 +10,8 @@ export default class Button {
       .classed('scola button', true)
       .styles({
         'display': 'flex',
-        'flex-direction': 'row',
         'height': '3em',
-        'width': '30%'
+        'justify-content': 'center'
       });
 
     this.inner = this.outer
@@ -21,14 +20,14 @@ export default class Button {
       .styles({
         'align-items': 'center',
         'cursor': 'pointer',
-        'display': 'flex',
         'overflow': 'hidden'
       });
 
-    this.padding = this.inner
+    this.outerPadding = this.inner
       .append('div')
       .classed('scola padding', true)
       .styles({
+        'height': '3em',
         'width': '0.5em'
       });
 
@@ -37,8 +36,16 @@ export default class Button {
       .classed('scola icon', true)
       .styles({
         'display': 'none',
-        'font-size': '2em',
-        'width': '0.6em'
+        'font-size': '2em'
+      });
+
+    this.iconPadding = this.inner
+      .append('div')
+      .classed('scola padding', true)
+      .styles({
+        'display': 'none',
+        'height': '3em',
+        'width': '0.5em'
       });
 
     this.text = this.inner
@@ -49,6 +56,16 @@ export default class Button {
         'text-overflow': 'ellipsis',
         'white-space': 'nowrap'
       });
+
+    this.textPadding = this.inner
+      .append('div')
+      .classed('scola padding', true)
+      .styles({
+        'height': '3em',
+        'width': '0.5em'
+      });
+
+    this.left();
   }
 
   destroy() {
@@ -61,23 +78,38 @@ export default class Button {
 
   left() {
     this.outer.styles({
-      'flex-direction': 'row',
-      'order': 1
+      'flex-direction': 'row'
     });
 
     this.inner.styles({
+      'display': 'flex',
       'flex-direction': 'row'
+    });
+  }
+
+  center() {
+    this.inner.styles({
+      'display': 'inline'
     });
   }
 
   right() {
     this.outer.styles({
-      'flex-direction': 'row-reverse',
-      'order': 3
+      'flex-direction': 'row-reverse'
     });
 
     this.inner.styles({
+      'display': 'flex',
       'flex-direction': 'row-reverse'
     });
+  }
+
+  iconClass(name) {
+    this.icon
+      .style('display', 'flex')
+      .classed(name, true);
+
+    this.iconPadding
+      .style('display', 'flex');
   }
 }

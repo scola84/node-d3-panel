@@ -26,8 +26,18 @@ export default class Panel {
         'display': 'flex',
         'height': '3em',
         'justify-content': 'space-between',
+        'padding': '0 0.5em',
         'position': 'relative',
         'width': '100%'
+      });
+
+    this.headerLeft = this.header
+      .append('div')
+      .classed('scola left', true)
+      .styles({
+        'display': 'flex',
+        'flex-direction': 'row',
+        'width': '30%'
       });
 
     this.headerTitle = this.header
@@ -39,10 +49,19 @@ export default class Panel {
         'line-height': '3em',
         'overflow': 'hidden',
         'position': 'absolute',
-        'white-space': 'nowrap',
-        'width': '40%',
         'text-align': 'center',
-        'text-overflow': 'ellipsis'
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap',
+        'width': '40%'
+      });
+
+    this.headerRight = this.header
+      .append('div')
+      .classed('scola right', true)
+      .styles({
+        'display': 'flex',
+        'flex-direction': 'row-reverse',
+        'width': '30%'
       });
 
     this.body = this.outer
@@ -65,8 +84,18 @@ export default class Panel {
         'border-top': '1px solid #CCC',
         'display': 'none',
         'height': '3em',
+        'justify-content': 'space-between',
         'position': 'relative',
         'width': '100%'
+      });
+
+    this.footerLeft = this.footer
+      .append('div')
+      .classed('scola left', true)
+      .styles({
+        'display': 'flex',
+        'flex-direction': 'row',
+        'width': '30%'
       });
 
     this.footerTitle = this.footer
@@ -74,10 +103,23 @@ export default class Panel {
       .classed('scola title', true)
       .styles({
         'font-weight': 'bold',
+        'left': '30%',
         'line-height': '3em',
+        'overflow': 'hidden',
         'position': 'absolute',
         'text-align': 'center',
-        'width': '100%'
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap',
+        'width': '40%'
+      });
+
+    this.footerRight = this.footer
+      .append('div')
+      .classed('scola right', true)
+      .styles({
+        'display': 'flex',
+        'flex-direction': 'row-reverse',
+        'width': '30%'
       });
   }
 
