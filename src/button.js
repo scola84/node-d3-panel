@@ -31,7 +31,7 @@ export default class Button {
         'width': '0.5em'
       });
 
-    this.icon = this.inner
+    this._icon = this.inner
       .append('div')
       .classed('scola icon', true)
       .styles({
@@ -48,7 +48,7 @@ export default class Button {
         'width': '0.5em'
       });
 
-    this.text = this.inner
+    this._text = this.inner
       .append('div')
       .classed('scola text', true)
       .styles({
@@ -85,12 +85,16 @@ export default class Button {
       'display': 'flex',
       'flex-direction': 'row'
     });
+
+    return this;
   }
 
   center() {
     this.inner.styles({
       'display': 'inline'
     });
+
+    return this;
   }
 
   right() {
@@ -102,14 +106,23 @@ export default class Button {
       'display': 'flex',
       'flex-direction': 'row-reverse'
     });
+
+    return this;
   }
 
-  iconClass(name) {
-    this.icon
+  icon(name) {
+    this._icon
       .style('display', 'flex')
       .classed(name, true);
 
     this.iconPadding
       .style('display', 'flex');
+
+    return this;
+  }
+
+  text(text) {
+    this._text.text(text);
+    return this;
   }
 }
