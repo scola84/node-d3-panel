@@ -6,7 +6,8 @@ export default class Panel {
   }
 
   build() {
-    this.outer = select(document.createElement('div'))
+    this.outer = select('body')
+      .append('div')
       .classed('scola panel', true)
       .styles({
         'background': '#EEE',

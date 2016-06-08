@@ -6,12 +6,16 @@ export default class Button {
   }
 
   build() {
-    this.outer = select(document.createElement('div'))
+    this.outer = select('body')
+      .append('button')
       .classed('scola button', true)
       .styles({
+        'background': 'none',
+        'border': 0,
         'display': 'flex',
         'height': '3em',
-        'justify-content': 'center'
+        'justify-content': 'center',
+        'padding': 0
       });
 
     this.inner = this.outer
