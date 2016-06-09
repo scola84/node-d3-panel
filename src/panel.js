@@ -69,7 +69,7 @@ export default class Panel {
       .append('div')
       .classed('scola body', true)
       .styles({
-        'flex-grow': 1,
+        'flex': 1,
         'overflow-x': 'hidden',
         'overflow-y': 'auto',
         'position': 'relative',
