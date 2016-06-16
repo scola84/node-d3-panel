@@ -2,11 +2,7 @@ import { select } from 'd3-selection';
 
 export default class Button {
   constructor() {
-    this.build();
-  }
-
-  build() {
-    this.outer = select('body')
+    this._root = select('body')
       .append('button')
       .classed('scola button', true)
       .styles({
@@ -18,7 +14,7 @@ export default class Button {
         'padding': 0
       });
 
-    this.inner = this.outer
+    this._inner = this._root
       .append('div')
       .classed('scola inner', true)
       .styles({
@@ -27,7 +23,7 @@ export default class Button {
         'overflow': 'hidden'
       });
 
-    this.outerPadding = this.inner
+    this._padding = this._inner
       .append('div')
       .classed('scola padding', true)
       .styles({
@@ -35,7 +31,7 @@ export default class Button {
         'width': '0.5em'
       });
 
-    this._icon = this.inner
+    this._icon = this._inner
       .append('div')
       .classed('scola icon', true)
       .styles({
@@ -43,7 +39,7 @@ export default class Button {
         'font-size': '2em'
       });
 
-    this.iconPadding = this.inner
+    this._iconPadding = this._inner
       .append('div')
       .classed('scola padding', true)
       .styles({
@@ -52,19 +48,21 @@ export default class Button {
         'width': '0.5em'
       });
 
-    this._text = this.inner
+    this._text = this._inner
       .append('div')
       .classed('scola text', true)
       .styles({
+        'display': 'none',
         'overflow': 'hidden',
         'text-overflow': 'ellipsis',
         'white-space': 'nowrap'
       });
 
-    this.textPadding = this.inner
+    this._textPadding = this._inner
       .append('div')
       .classed('scola padding', true)
       .styles({
+        'display': 'none',
         'height': '3em',
         'width': '0.5em'
       });
@@ -73,60 +71,74 @@ export default class Button {
   }
 
   destroy() {
-    this.outer.remove();
+    this._root.remove();
   }
 
-  node() {
-    return this.outer.node();
-  }
-
-  left() {
-    this.outer.styles({
-      'flex-direction': 'row'
-    });
-
-    this.inner.styles({
-      'display': 'flex',
-      'flex-direction': 'row'
-    });
-
-    return this;
-  }
-
-  center() {
-    this.inner.styles({
-      'display': 'inline'
-    });
-
-    return this;
-  }
-
-  right() {
-    this.outer.styles({
-      'flex-direction': 'row-reverse'
-    });
-
-    this.inner.styles({
-      'display': 'flex',
-      'flex-direction': 'row-reverse'
-    });
-
-    return this;
+  root() {
+    return this._root;
   }
 
   icon(name) {
+    if (typeof name === 'undefined') {
+      return this._icon;
+    }
+
     this._icon
       .style('display', 'flex')
       .classed(name, true);
 
-    this.iconPadding
+    this._iconPadding
       .style('display', 'flex');
 
     return this;
   }
 
   text(text) {
-    this._text.text(text);
+    if (typeof text === 'undefined') {
+      return this._text;
+    }
+
+    this._text
+      .style('display', 'flex')
+      .text(text);
+
+    this._textPadding
+      .style('display', 'flex');
+
+    return this;
+  }
+
+  center() {
+    this._inner.styles({
+      'display': 'inline'
+    });
+
+    return this;
+  }
+
+  left() {
+    this._root.styles({
+      'flex-direction': 'row'
+    });
+
+    this._inner.styles({
+      'display': 'flex',
+      'flex-direction': 'row'
+    });
+
+    return this;
+  }
+
+  right() {
+    this._root.styles({
+      'flex-direction': 'row-reverse'
+    });
+
+    this._inner.styles({
+      'display': 'flex',
+      'flex-direction': 'row-reverse'
+    });
+
     return this;
   }
 }

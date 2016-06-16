@@ -1,12 +1,12 @@
 import { select } from 'd3-selection';
+import Bar from './bar';
 
 export default class Panel {
   constructor() {
-    this.build();
-  }
+    this._footer = null;
+    this._header = null;
 
-  build() {
-    this.outer = select('body')
+    this._root = select('body')
       .append('div')
       .classed('scola panel', true)
       .styles({
@@ -18,117 +18,93 @@ export default class Panel {
         'width': '100%'
       });
 
-    this.header = this.outer
-      .append('div')
-      .classed('scola header', true)
-      .styles({
-        'background': '#FAFAFA',
-        'border-bottom': '1px solid #CCC',
-        'display': 'flex',
-        'height': '3em',
-        'justify-content': 'space-between',
-        'padding': '0 0.5em',
-        'position': 'relative',
-        'width': '100%'
-      });
-
-    this.headerLeft = this.header
-      .append('div')
-      .classed('scola left', true)
-      .styles({
-        'display': 'flex',
-        'flex-direction': 'row',
-        'width': '30%'
-      });
-
-    this.headerTitle = this.header
-      .append('div')
-      .classed('scola title', true)
-      .styles({
-        'font-weight': 'bold',
-        'left': '30%',
-        'line-height': '3em',
-        'overflow': 'hidden',
-        'position': 'absolute',
-        'text-align': 'center',
-        'text-overflow': 'ellipsis',
-        'white-space': 'nowrap',
-        'width': '40%'
-      });
-
-    this.headerRight = this.header
-      .append('div')
-      .classed('scola right', true)
-      .styles({
-        'display': 'flex',
-        'flex-direction': 'row-reverse',
-        'width': '30%'
-      });
-
-    this.body = this.outer
+    this._body = this._root
       .append('div')
       .classed('scola body', true)
       .styles({
         'flex': 1,
+        'order': 2,
         'overflow-x': 'hidden',
         'overflow-y': 'auto',
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch',
         'width': '100%'
       });
-
-    this.footer = this.outer
-      .append('div')
-      .classed('scola footer', true)
-      .styles({
-        'background': '#FAFAFA',
-        'border-top': '1px solid #CCC',
-        'display': 'none',
-        'height': '3em',
-        'justify-content': 'space-between',
-        'position': 'relative',
-        'width': '100%'
-      });
-
-    this.footerLeft = this.footer
-      .append('div')
-      .classed('scola left', true)
-      .styles({
-        'display': 'flex',
-        'flex-direction': 'row',
-        'width': '30%'
-      });
-
-    this.footerTitle = this.footer
-      .append('div')
-      .classed('scola title', true)
-      .styles({
-        'font-weight': 'bold',
-        'left': '30%',
-        'line-height': '3em',
-        'overflow': 'hidden',
-        'position': 'absolute',
-        'text-align': 'center',
-        'text-overflow': 'ellipsis',
-        'white-space': 'nowrap',
-        'width': '40%'
-      });
-
-    this.footerRight = this.footer
-      .append('div')
-      .classed('scola right', true)
-      .styles({
-        'display': 'flex',
-        'flex-direction': 'row-reverse',
-        'width': '30%'
-      });
   }
 
   destroy() {
-    this.outer.remove();
+    if (this._footer) {
+      this._footer.destroy();
+    }
+
+    if (this._header) {
+      this._header.destroy();
+    }
+
+    this._root.remove();
   }
 
-  node() {
-    return this.outer.node();
+  body() {
+    return this._body;
+  }
+
+  root() {
+    return this._root;
+  }
+
+  append(element) {
+    this._body.node().appendChild(element.root().node());
+  }
+
+  footer(boolean) {
+    if (typeof boolean === 'undefined') {
+      return this._footer;
+    }
+
+    if (!boolean) {
+      this._footer.destroy();
+      this._footer = null;
+
+      return this;
+    }
+
+    this._footer = new Bar();
+
+    this._footer.root()
+      .classed('footer', true)
+      .styles({
+        'border-top': '1px solid #CCC',
+        'order': 3
+      });
+
+    this._root.node().appendChild(this._footer.root().node());
+
+    return this;
+  }
+
+  header(boolean) {
+    if (typeof boolean === 'undefined') {
+      return this._header;
+    }
+
+    if (!boolean) {
+      this._header.destroy();
+      this._header = null;
+
+      return this;
+    }
+
+    this._header = new Bar();
+
+    this._header.root()
+      .classed('header', true)
+      .styles({
+        'border-bottom': '1px solid #CCC',
+        'order': 1
+      });
+
+    this._root.node().appendChild(this._header.root().node());
+
+    return this;
   }
 }
