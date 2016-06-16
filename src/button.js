@@ -66,8 +66,6 @@ export default class Button {
         'height': '3em',
         'width': '0.5em'
       });
-
-    this.left();
   }
 
   destroy() {
