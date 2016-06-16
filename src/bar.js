@@ -62,8 +62,6 @@ export default class Bar {
       return this._left;
     }
 
-    console.log(element);
-
     this._left.node().appendChild(element.root().node());
     return this;
   }
