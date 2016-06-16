@@ -50,28 +50,32 @@ export default class Bar {
   }
 
   destroy() {
+    this._root.dispatch('destroy');
     this._root.remove();
+    this._root = null;
   }
 
   root() {
     return this._root;
   }
 
-  left(element) {
-    if (typeof element === 'undefined') {
-      return this._left;
+  left(element, action = true) {
+    if (action === true) {
+      this._left.node().appendChild(element.root().node());
+    } else if (action === false) {
+      element.root().remove();
     }
 
-    this._left.node().appendChild(element.root().node());
     return this;
   }
 
-  right(element) {
-    if (typeof element === 'undefined') {
-      return this._right;
+  right(element, action = true) {
+    if (action === true) {
+      this._right.node().appendChild(element.root().node());
+    } else if (action === false) {
+      element.root().remove();
     }
 
-    this._right.node().appendChild(element.root().node());
     return this;
   }
 

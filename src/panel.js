@@ -41,7 +41,9 @@ export default class Panel {
       this._header.destroy();
     }
 
+    this._root.dispatch('destroy');
     this._root.remove();
+    this._root = null;
   }
 
   body() {
@@ -52,16 +54,22 @@ export default class Panel {
     return this._root;
   }
 
-  append(element) {
-    this._body.node().appendChild(element.root().node());
+  append(element, action = true) {
+    if (action === true) {
+      this._body.node().appendChild(element.root().node());
+    } else if (action === false) {
+      element.root().remove();
+    }
+
+    return this;
   }
 
-  footer(boolean) {
-    if (typeof boolean === 'undefined') {
+  footer(action) {
+    if (typeof action === 'undefined') {
       return this._footer;
     }
 
-    if (!boolean) {
+    if (action === false) {
       this._footer.destroy();
       this._footer = null;
 
@@ -82,12 +90,12 @@ export default class Panel {
     return this;
   }
 
-  header(boolean) {
-    if (typeof boolean === 'undefined') {
+  header(action) {
+    if (typeof action === 'undefined') {
       return this._header;
     }
 
-    if (!boolean) {
+    if (action === false) {
       this._header.destroy();
       this._header = null;
 

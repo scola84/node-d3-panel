@@ -69,7 +69,9 @@ export default class Button {
   }
 
   destroy() {
+    this._root.dispatch('destroy');
     this._root.remove();
+    this._root = null;
   }
 
   root() {
