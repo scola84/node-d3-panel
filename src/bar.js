@@ -4,6 +4,7 @@ export default class PanelBar {
   constructor() {
     this._root = select('body')
       .append('div')
+      .remove()
       .classed('scola', true)
       .styles({
         'background': '#FAFAFA',

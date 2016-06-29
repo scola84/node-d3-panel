@@ -8,6 +8,7 @@ export default class Panel {
 
     this._root = select('body')
       .append('div')
+      .remove()
       .classed('scola panel', true)
       .styles({
         'background': '#EEE',
@@ -35,10 +36,12 @@ export default class Panel {
   destroy() {
     if (this._footer) {
       this._footer.destroy();
+      this._footer = null;
     }
 
     if (this._header) {
       this._header.destroy();
+      this._header = null;
     }
 
     this._root.dispatch('destroy');

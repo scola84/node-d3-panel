@@ -4,6 +4,7 @@ export default class PanelButton {
   constructor() {
     this._root = select('body')
       .append('button')
+      .remove()
       .classed('scola button', true)
       .styles({
         'background': 'none',
