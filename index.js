@@ -1,10 +1,10 @@
-import Button from './src/button';
 import Panel from './src/panel';
-
-export function button() {
-  return new Button();
-}
+import PanelButton from './src/button';
 
 export function panel() {
   return new Panel();
+}
+
+export function panelButton() {
+  return new PanelButton();
 }

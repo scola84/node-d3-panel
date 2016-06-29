@@ -1,6 +1,6 @@
 import { select } from 'd3-selection';
 
-export default class Bar {
+export default class PanelBar {
   constructor() {
     this._root = select('body')
       .append('div')

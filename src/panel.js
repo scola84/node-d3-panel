@@ -1,5 +1,5 @@
 import { select } from 'd3-selection';
-import Bar from './bar';
+import PanelBar from './bar';
 
 export default class Panel {
   constructor() {
@@ -76,7 +76,7 @@ export default class Panel {
       return this;
     }
 
-    this._footer = new Bar();
+    this._footer = new PanelBar();
 
     this._footer.root()
       .classed('footer', true)
@@ -102,7 +102,7 @@ export default class Panel {
       return this;
     }
 
-    this._header = new Bar();
+    this._header = new PanelBar();
 
     this._header.root()
       .classed('header', true)
