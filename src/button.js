@@ -2,69 +2,32 @@ import { select } from 'd3-selection';
 
 export default class PanelButton {
   constructor() {
+    this._text = null;
+    this._textPadding = null;
+    this._icon = null;
+    this._iconPadding = null;
+
     this._root = select('body')
       .append('button')
       .remove()
       .classed('scola button', true)
       .styles({
+        'align-items': 'center',
         'background': 'none',
         'border': 0,
+        'cursor': 'pointer',
         'display': 'flex',
         'height': '3em',
         'justify-content': 'center',
         'padding': 0
       });
 
-    this._inner = this._root
-      .append('div')
-      .classed('scola inner', true)
-      .styles({
-        'align-items': 'center',
-        'cursor': 'pointer',
-        'overflow': 'hidden'
-      });
-
-    this._padding = this._inner
+    this._padding = this._root
       .append('div')
       .classed('scola padding', true)
       .styles({
         'height': '3em',
-        'width': '0.5em'
-      });
-
-    this._icon = this._inner
-      .append('div')
-      .classed('scola icon', true)
-      .styles({
-        'display': 'none',
-        'font-size': '2em'
-      });
-
-    this._iconPadding = this._inner
-      .append('div')
-      .classed('scola padding', true)
-      .styles({
-        'display': 'none',
-        'height': '3em',
-        'width': '0.5em'
-      });
-
-    this._text = this._inner
-      .append('div')
-      .classed('scola text', true)
-      .styles({
-        'display': 'none',
-        'overflow': 'hidden',
-        'text-overflow': 'ellipsis',
-        'white-space': 'nowrap'
-      });
-
-    this._textPadding = this._inner
-      .append('div')
-      .classed('scola padding', true)
-      .styles({
-        'display': 'none',
-        'height': '3em',
+        'order': 1,
         'width': '0.5em'
       });
   }
@@ -84,12 +47,33 @@ export default class PanelButton {
       return this._icon;
     }
 
-    this._icon
-      .style('display', 'flex')
-      .classed(name, true);
+    if (name === false) {
+      this._icon.remove();
+      this._icon = null;
 
-    this._iconPadding
-      .style('display', 'flex');
+      this._iconPadding.remove();
+      this._iconPadding = null;
+
+      return this;
+    }
+
+    this._icon = this._root
+      .append('div')
+      .classed('scola icon', true)
+      .classed(name, true)
+      .styles({
+        'font-size': '2em',
+        'order': 2
+      });
+
+    this._iconPadding = this._root
+      .append('div')
+      .classed('scola padding', true)
+      .styles({
+        'height': '3em',
+        'order': 3,
+        'width': '0.5em'
+      });
 
     return this;
   }
@@ -99,19 +83,43 @@ export default class PanelButton {
       return this._text;
     }
 
-    this._text
-      .style('display', 'flex')
+    if (text === false) {
+      this._text.remove();
+      this._text = null;
+
+      this._textPadding.remove();
+      this._textPadding = null;
+
+      return this;
+    }
+
+    this._text = this._root
+      .append('div')
+      .classed('scola text', true)
+      .styles({
+        'order': 4,
+        'overflow': 'hidden',
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap'
+      })
       .text(text);
 
-    this._textPadding
-      .style('display', 'flex');
+    this._textPadding = this._root
+      .append('div')
+      .classed('scola padding', true)
+      .styles({
+        'height': '3em',
+        'order': 5,
+        'width': '0.5em'
+      });
 
     return this;
   }
 
   center() {
-    this._inner.styles({
-      'display': 'inline'
+    this._root.styles({
+      'display': 'inline-flex',
+      'flex-direction': 'row'
     });
 
     return this;
@@ -122,21 +130,11 @@ export default class PanelButton {
       'flex-direction': 'row'
     });
 
-    this._inner.styles({
-      'display': 'flex',
-      'flex-direction': 'row'
-    });
-
     return this;
   }
 
   right() {
     this._root.styles({
-      'flex-direction': 'row-reverse'
-    });
-
-    this._inner.styles({
-      'display': 'flex',
       'flex-direction': 'row-reverse'
     });
 
