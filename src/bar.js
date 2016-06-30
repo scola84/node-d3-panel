@@ -11,7 +11,6 @@ export default class PanelBar {
         'display': 'flex',
         'height': '3em',
         'justify-content': 'space-between',
-        'padding': '0 0.5em',
         'position': 'relative',
         'width': '100%'
       });

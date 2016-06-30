@@ -28,7 +28,7 @@ export default class PanelButton {
       .styles({
         'height': '3em',
         'order': 1,
-        'width': '0.5em'
+        'width': '1em'
       });
   }
 
@@ -87,9 +87,6 @@ export default class PanelButton {
       this._text.remove();
       this._text = null;
 
-      this._textPadding.remove();
-      this._textPadding = null;
-
       return this;
     }
 
@@ -103,15 +100,6 @@ export default class PanelButton {
         'white-space': 'nowrap'
       })
       .text(text);
-
-    this._textPadding = this._root
-      .append('div')
-      .classed('scola padding', true)
-      .styles({
-        'height': '3em',
-        'order': 5,
-        'width': '0.5em'
-      });
 
     return this;
   }
