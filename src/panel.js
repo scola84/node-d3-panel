@@ -23,7 +23,9 @@ export default class Panel {
       .append('div')
       .classed('scola body', true)
       .styles({
+        'display': 'flex',
         'flex': 1,
+        'flex-direction': 'column',
         'order': 2,
         'overflow-x': 'hidden',
         'overflow-y': 'auto',
