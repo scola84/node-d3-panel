@@ -26,7 +26,7 @@ export default class PanelButton {
       .append('div')
       .classed('scola padding', true)
       .styles({
-        'height': '3em',
+        'height': '100%',
         'order': 1,
         'width': '1em'
       });
@@ -70,7 +70,7 @@ export default class PanelButton {
       .append('div')
       .classed('scola padding', true)
       .styles({
-        'height': '3em',
+        'height': '100%',
         'order': 3,
         'width': '0.5em'
       });
