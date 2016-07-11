@@ -27,6 +27,7 @@ export default class Panel {
         'order': 2,
         'overflow-x': 'hidden',
         'overflow-y': 'auto',
+        'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
       });
   }
