@@ -25,8 +25,7 @@ export default class Panel {
       .styles({
         'flex': 1,
         'order': 2,
-        'overflow-x': 'hidden',
-        'overflow-y': 'auto',
+        'overflow': 'auto',
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
       });

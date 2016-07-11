@@ -110,6 +110,10 @@ export default class PanelButton {
       'flex-direction': 'row'
     });
 
+    if (!this._icon) {
+      this._padding.style('display', 'none');
+    }
+
     return this;
   }
 

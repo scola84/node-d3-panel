@@ -2,6 +2,8 @@ import { select } from 'd3-selection';
 
 export default class PanelBar {
   constructor() {
+    this._title = null;
+
     this._root = select('body')
       .append('div')
       .remove()
@@ -18,23 +20,21 @@ export default class PanelBar {
       .classed('scola left', true)
       .styles({
         'display': 'flex',
+        'flex-basis': '30%',
         'flex-direction': 'row',
-        'width': '30%'
+        'order': 1
       });
 
-    this._title = this._root
+    this._center = this._root
       .append('div')
-      .classed('scola title', true)
+      .classed('scola center', true)
       .styles({
-        'font-weight': 'bold',
-        'left': '30%',
-        'line-height': '3em',
-        'overflow': 'hidden',
-        'position': 'absolute',
-        'text-align': 'center',
-        'text-overflow': 'ellipsis',
-        'white-space': 'nowrap',
-        'width': '40%'
+        'display': 'flex',
+        'flex-basis': '40%',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        'order': 2,
+        'overflow': 'hidden'
       });
 
     this._right = this._root
@@ -42,8 +42,9 @@ export default class PanelBar {
       .classed('scola right', true)
       .styles({
         'display': 'flex',
+        'flex-basis': '30%',
         'flex-direction': 'row-reverse',
-        'width': '30%'
+        'order': 3
       });
   }
 
@@ -55,6 +56,16 @@ export default class PanelBar {
 
   root() {
     return this._root;
+  }
+
+  center(element, action = true) {
+    if (action === true) {
+      this._center.node().appendChild(element.root().node());
+    } else if (action === false) {
+      element.root().remove();
+    }
+
+    return this;
   }
 
   left(element, action = true) {
@@ -82,7 +93,29 @@ export default class PanelBar {
       return this._title;
     }
 
-    this._title.text(text);
+    if (text === false) {
+      this._title.remove();
+      return this;
+    }
+
+    if (this._title) {
+      this._title.text(text);
+      return this;
+    }
+
+    this._title = this._center
+      .append('div')
+      .classed('scola title', true)
+      .styles({
+        'font-weight': 'bold',
+        'line-height': '3em',
+        'overflow': 'hidden',
+        'text-align': 'center',
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap'
+      })
+      .text(text);
+
     return this;
   }
 }
