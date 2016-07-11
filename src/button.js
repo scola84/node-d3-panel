@@ -8,7 +8,7 @@ export default class PanelButton {
     this._iconPadding = null;
 
     this._root = select('body')
-      .append('button')
+      .append('div')
       .remove()
       .classed('scola button', true)
       .styles({
