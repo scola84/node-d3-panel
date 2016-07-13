@@ -10,9 +10,11 @@ export default class PanelMessage {
         'align-items': 'center',
         'color': '#AAA',
         'display': 'flex',
-        'flex': 1,
         'font-size': '2em',
-        'justify-content': 'center'
+        'height': '100%',
+        'justify-content': 'center',
+        'position': 'absolute',
+        'width': '100%'
       });
   }
 
