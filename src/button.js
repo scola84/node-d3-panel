@@ -2,6 +2,8 @@ import { select } from 'd3-selection';
 
 export default class PanelButton {
   constructor() {
+    this._disabled = false;
+
     this._text = null;
     this._textPadding = null;
     this._icon = null;
@@ -22,13 +24,22 @@ export default class PanelButton {
         'padding': 0
       });
 
-    this._padding = this._root
+    this._leftPadding = this._root
       .append('div')
       .classed('scola padding', true)
       .styles({
         'height': '100%',
         'order': 1,
-        'width': '1em'
+        'width': '0.5em'
+      });
+
+    this._rightPadding = this._root
+      .append('div')
+      .classed('scola padding', true)
+      .styles({
+        'height': '100%',
+        'order': 5,
+        'width': '0.5em'
       });
   }
 
@@ -129,6 +140,17 @@ export default class PanelButton {
     this._root.styles({
       'flex-direction': 'row-reverse'
     });
+
+    return this;
+  }
+
+  disabled(disabled) {
+    if (typeof disabled === 'undefined') {
+      return this._disabled;
+    }
+
+    this._root.classed('disabled', disabled);
+    this._disabled = disabled;
 
     return this;
   }

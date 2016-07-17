@@ -8,6 +8,7 @@ export default class PanelMessage {
       .classed('scola message', true)
       .styles({
         'align-items': 'center',
+        'background': 'inherit',
         'color': '#AAA',
         'display': 'flex',
         'font-size': '2em',

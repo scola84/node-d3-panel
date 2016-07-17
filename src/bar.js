@@ -12,7 +12,8 @@ export default class PanelBar {
         'background': '#FAFAFA',
         'display': 'flex',
         'height': '3em',
-        'justify-content': 'space-between'
+        'justify-content': 'space-between',
+        'padding': '0 0.5em'
       });
 
     this._left = this._root

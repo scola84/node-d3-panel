@@ -11,7 +11,6 @@ export default class Panel {
       .remove()
       .classed('scola panel', true)
       .styles({
-        'background': '#EEE',
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100%',
@@ -23,6 +22,7 @@ export default class Panel {
       .append('div')
       .classed('scola body', true)
       .styles({
+        'background': '#EEE',
         'flex': 1,
         'order': 2,
         'overflow': 'auto',
