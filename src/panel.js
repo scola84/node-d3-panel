@@ -55,7 +55,7 @@ export default class Panel {
     return this._root;
   }
 
-  append(element, action = true) {
+  append(element, action) {
     if (action === true) {
       this._body.node().appendChild(element.root().node());
     } else if (action === false) {

@@ -59,7 +59,7 @@ export default class PanelBar {
     return this._root;
   }
 
-  center(element, action = true) {
+  center(element, action) {
     if (action === true) {
       this._center.node().appendChild(element.root().node());
     } else if (action === false) {
@@ -69,7 +69,7 @@ export default class PanelBar {
     return this;
   }
 
-  left(element, action = true) {
+  left(element, action) {
     if (action === true) {
       this._left.node().appendChild(element.root().node());
     } else if (action === false) {
@@ -79,7 +79,7 @@ export default class PanelBar {
     return this;
   }
 
-  right(element, action = true) {
+  right(element, action) {
     if (action === true) {
       this._right.node().appendChild(element.root().node());
     } else if (action === false) {
