@@ -14,6 +14,7 @@ export default class PanelMessage {
         'font-size': '2em',
         'height': '100%',
         'justify-content': 'center',
+        'text-align': 'center',
         'position': 'absolute',
         'width': '100%'
       });
