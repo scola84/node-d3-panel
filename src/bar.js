@@ -89,21 +89,23 @@ export default class PanelBar {
     return this;
   }
 
-  title(text) {
-    if (typeof text === 'undefined') {
+  title(title) {
+    if (typeof title === 'undefined') {
       return this._title;
     }
 
-    if (text === false) {
-      this._title.remove();
-      return this;
+    if (title === false) {
+      return this._deleteTitle();
     }
 
     if (this._title) {
-      this._title.text(text);
-      return this;
+      return this._updateTitle(title);
     }
 
+    return this._insertTitle(title);
+  }
+
+  _insertTitle(title) {
     this._title = this._center
       .append('div')
       .classed('scola title', true)
@@ -115,7 +117,21 @@ export default class PanelBar {
         'text-overflow': 'ellipsis',
         'white-space': 'nowrap'
       })
-      .text(text);
+      .text(title);
+
+    return this;
+  }
+
+  _updateTitle(title) {
+    this._title.text(title);
+    return this;
+  }
+
+  _deleteTitle() {
+    if (this._title) {
+      this._title.remove();
+      this._title = null;
+    }
 
     return this;
   }
