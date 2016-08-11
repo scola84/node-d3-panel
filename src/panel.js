@@ -1,10 +1,12 @@
 import { select } from 'd3-selection';
+import Message from './message';
 import PanelBar from './bar';
 
 export default class Panel {
   constructor() {
     this._footer = null;
     this._header = null;
+    this._message = null;
 
     this._root = select('body')
       .append('div')
@@ -40,6 +42,11 @@ export default class Panel {
     if (this._header) {
       this._header.destroy();
       this._header = null;
+    }
+
+    if (this._message) {
+      this.append(this._message, false);
+      this._message = null;
     }
 
     this._root.dispatch('destroy');
@@ -113,6 +120,28 @@ export default class Panel {
       });
 
     this._root.node().appendChild(this._header.root().node());
+
+    return this;
+  }
+
+  message(message) {
+    if (typeof message === 'undefined') {
+      return this._message;
+    }
+
+    if (message === false) {
+      if (this._message) {
+        this.append(this._message, false);
+        this._message = null;
+        this._body.style('overflow', 'auto');
+      }
+
+      return this;
+    }
+
+    this._body.style('overflow', 'hidden');
+    this._message = new Message().text(message);
+    this.append(this._message, true);
 
     return this;
   }

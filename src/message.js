@@ -13,10 +13,13 @@ export default class PanelMessage {
         'display': 'flex',
         'font-size': '2em',
         'height': '100%',
+        'left': 0,
         'justify-content': 'center',
         'text-align': 'center',
+        'top': 0,
         'position': 'absolute',
-        'width': '100%'
+        'width': '100%',
+        'z-index': 1
       });
   }
 
