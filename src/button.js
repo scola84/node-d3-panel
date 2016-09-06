@@ -55,36 +55,36 @@ export default class PanelButton {
     return this._root;
   }
 
-  icon(name, size = '2em') {
-    if (typeof name === 'undefined') {
+  icon(value, size = '2em') {
+    if (typeof value === 'undefined') {
       return this._icon;
     }
 
-    if (name === false) {
+    if (value === false) {
       return this._deleteIcon();
     }
 
     if (this._icon) {
-      return this._updateIcon(name, size);
+      return this._updateIcon(value, size);
     }
 
-    return this._insertIcon(name, size);
+    return this._insertIcon(value, size);
   }
 
-  text(text) {
-    if (typeof text === 'undefined') {
+  text(value) {
+    if (typeof value === 'undefined') {
       return this._text;
     }
 
-    if (text === false) {
+    if (value === false) {
       return this._deleteText();
     }
 
     if (this._text) {
-      return this._updateText(text);
+      return this._updateText(value);
     }
 
-    return this._insertText(text);
+    return this._insertText(value);
   }
 
   center() {
@@ -112,13 +112,13 @@ export default class PanelButton {
     return this;
   }
 
-  disabled(disabled) {
-    if (typeof disabled === 'undefined') {
+  disabled(value) {
+    if (typeof value === 'undefined') {
       return this._disabled;
     }
 
-    this._disabled = disabled;
-    this._root.classed('disabled', disabled);
+    this._disabled = value;
+    this._root.classed('disabled', value);
 
     return this;
   }

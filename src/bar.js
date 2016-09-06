@@ -89,20 +89,20 @@ export default class PanelBar {
     return this;
   }
 
-  title(title) {
-    if (typeof title === 'undefined') {
+  title(value) {
+    if (typeof value === 'undefined') {
       return this._title;
     }
 
-    if (title === false) {
+    if (value === false) {
       return this._deleteTitle();
     }
 
     if (this._title) {
-      return this._updateTitle(title);
+      return this._updateTitle(value);
     }
 
-    return this._insertTitle(title);
+    return this._insertTitle(value);
   }
 
   _insertTitle(title) {

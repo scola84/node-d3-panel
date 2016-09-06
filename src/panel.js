@@ -124,12 +124,12 @@ export default class Panel {
     return this;
   }
 
-  message(message) {
-    if (typeof message === 'undefined') {
+  message(value) {
+    if (typeof value === 'undefined') {
       return this._message;
     }
 
-    if (message === false) {
+    if (value === false) {
       if (this._message) {
         this.append(this._message, false);
         this._message = null;
@@ -140,7 +140,7 @@ export default class Panel {
     }
 
     this._body.style('overflow', 'hidden');
-    this._message = new Message().text(message);
+    this._message = new Message().text(value);
     this.append(this._message, true);
 
     return this;
