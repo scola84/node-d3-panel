@@ -3,6 +3,8 @@ import { select } from 'd3-selection';
 export default class PanelBar {
   constructor() {
     this._title = null;
+    this._left = null;
+    this._right = null;
 
     this._root = select('body')
       .append('div')
@@ -13,17 +15,8 @@ export default class PanelBar {
         'display': 'flex',
         'height': '3em',
         'justify-content': 'space-between',
+        'line-height': '3em',
         'padding': '0 0.5em'
-      });
-
-    this._left = this._root
-      .append('div')
-      .classed('scola left', true)
-      .styles({
-        'display': 'flex',
-        'flex-basis': '30%',
-        'flex-direction': 'row',
-        'order': 1
       });
 
     this._center = this._root
@@ -31,22 +24,13 @@ export default class PanelBar {
       .classed('scola center', true)
       .styles({
         'display': 'flex',
-        'flex-basis': '40%',
+        'flex': 1,
         'flex-direction': 'row',
         'justify-content': 'center',
         'order': 2,
         'overflow': 'hidden'
       });
 
-    this._right = this._root
-      .append('div')
-      .classed('scola right', true)
-      .styles({
-        'display': 'flex',
-        'flex-basis': '30%',
-        'flex-direction': 'row-reverse',
-        'order': 3
-      });
   }
 
   destroy() {
@@ -70,6 +54,10 @@ export default class PanelBar {
   }
 
   left(element, action) {
+    if (!this._left) {
+      this._sides();
+    }
+
     if (action === true) {
       this._left.node().appendChild(element.root().node());
     } else if (action === false) {
@@ -80,6 +68,10 @@ export default class PanelBar {
   }
 
   right(element, action) {
+    if (!this._right) {
+      this._sides();
+    }
+
     if (action === true) {
       this._right.node().appendChild(element.root().node());
     } else if (action === false) {
@@ -91,6 +83,10 @@ export default class PanelBar {
 
   title(value) {
     if (typeof value === 'undefined') {
+      if (!this._title) {
+        this._insertTitle();
+      }
+
       return this._title;
     }
 
@@ -111,7 +107,6 @@ export default class PanelBar {
       .classed('scola title', true)
       .styles({
         'font-weight': 'bold',
-        'line-height': '3em',
         'overflow': 'hidden',
         'text-align': 'center',
         'text-overflow': 'ellipsis',
@@ -134,5 +129,27 @@ export default class PanelBar {
     }
 
     return this;
+  }
+
+  _sides() {
+    this._left = this._root
+      .append('div')
+      .classed('scola left', true)
+      .styles({
+        'display': 'flex',
+        'flex-basis': '30%',
+        'flex-direction': 'row',
+        'order': 1
+      });
+
+    this._right = this._root
+      .append('div')
+      .classed('scola right', true)
+      .styles({
+        'display': 'flex',
+        'flex-basis': '30%',
+        'flex-direction': 'row-reverse',
+        'order': 3
+      });
   }
 }
