@@ -139,6 +139,11 @@ export default class Panel {
       return this;
     }
 
+    if (this._message) {
+      this._message.text(value);
+      return this;
+    }
+
     this._body.style('overflow', 'hidden');
     this._message = new Message().text(value);
     this.append(this._message, true);
