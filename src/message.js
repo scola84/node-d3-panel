@@ -15,6 +15,7 @@ export default class PanelMessage {
         'height': '100%',
         'left': 0,
         'justify-content': 'center',
+        'padding': '0 0.5em',
         'text-align': 'center',
         'top': 0,
         'position': 'absolute',
