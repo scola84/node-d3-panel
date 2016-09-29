@@ -1,6 +1,7 @@
 import { select } from 'd3-selection';
 import Message from './message';
 import PanelBar from './bar';
+import 'd3-selection-multi';
 
 export default class Panel {
   constructor() {
