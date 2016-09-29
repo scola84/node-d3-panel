@@ -1,12 +1,15 @@
 import buble from 'rollup-plugin-buble';
+import resolve from 'rollup-plugin-node-resolve';
 
 export default {
+  dest: './dist/d3-panel.js',
   entry: 'index.js',
   format: 'umd',
-  globals: {
-    'd3-selection': 'd3'
-  },
+  moduleName: 'd3',
   plugins: [
+    resolve({
+      jsnext: true
+    }),
     buble()
   ]
 };
