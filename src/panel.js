@@ -8,11 +8,15 @@ export default class Panel {
     this._footer = null;
     this._header = null;
     this._message = null;
+    this._lock = null;
 
     this._root = select('body')
-      .append('div')
+      .append('form')
       .remove()
       .classed('scola panel', true)
+      .attrs({
+        'method': 'POST'
+      })
       .styles({
         'display': 'flex',
         'flex-direction': 'column',
@@ -148,6 +152,46 @@ export default class Panel {
     this._body.style('overflow', 'hidden');
     this._message = new Message().text(value);
     this.append(this._message, true);
+
+    return this;
+  }
+
+  lock(value) {
+    if (typeof value === 'undefined') {
+      return this._lock;
+    }
+
+    if (value === false) {
+      return this._deleteLock();
+    }
+
+    if (this._lock) {
+      return this;
+    }
+
+    return this._insertLock();
+  }
+
+  _insertLock() {
+    this._lock = this._root
+      .append('div')
+      .classed('scola lock', true)
+      .styles({
+        'bottom': 0,
+        'left': 0,
+        'position': 'absolute',
+        'right': 0,
+        'top': 0
+      });
+
+    return this;
+  }
+
+  _deleteLock() {
+    if (this._lock) {
+      this._lock.remove();
+      this._lock = null;
+    }
 
     return this;
   }
