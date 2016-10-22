@@ -13,9 +13,12 @@ export default class PanelButton {
     this._iconName = null;
 
     this._root = select('body')
-      .append('div')
+      .append('button')
       .remove()
       .classed('scola button', true)
+      .attrs({
+        type: 'button'
+      })
       .styles({
         'align-items': 'center',
         'background': 'none',
@@ -54,6 +57,11 @@ export default class PanelButton {
 
   root() {
     return this._root;
+  }
+
+  type(value) {
+    this._root.attr('type', value);
+    return this;
   }
 
   icon(value, size = '2em') {
