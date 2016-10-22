@@ -36,9 +36,14 @@ export default class Panel {
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
       });
+
+    this._handleSubmit = (event) => event.preventDefault();
+    this._bind();
   }
 
   destroy() {
+    this._unbind();
+
     if (this._footer) {
       this._footer.destroy();
       this._footer = null;
@@ -170,6 +175,14 @@ export default class Panel {
     }
 
     return this._insertLock();
+  }
+
+  _bind() {
+    this._root.node().addEventListener('submit', this._handleSubmit);
+  }
+
+  _unbind() {
+    this._root.node().removeEventListener('submit', this._handleSubmit);
   }
 
   _insertLock() {
