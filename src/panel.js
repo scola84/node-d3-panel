@@ -1,6 +1,6 @@
 import { select } from 'd3-selection';
+import { controlBar } from '@scola/d3-generic';
 import Message from './message';
-import PanelBar from './bar';
 import 'd3-selection-multi';
 
 export default class Panel {
@@ -94,7 +94,7 @@ export default class Panel {
       return this;
     }
 
-    this._footer = new PanelBar();
+    this._footer = controlBar();
 
     this._footer.root()
       .classed('footer', true)
@@ -120,7 +120,7 @@ export default class Panel {
       return this;
     }
 
-    this._header = new PanelBar();
+    this._header = controlBar();
 
     this._header.root()
       .classed('header', true)

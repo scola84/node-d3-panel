@@ -8,6 +8,7 @@
   "main": "./dist/d3-panel.js",
   "jsnext:main": "index.js",
   "dependencies": {
+    "@scola/d3-generic": "^1.0.0",
     "d3-selection": "^1.0.2",
     "d3-selection-multi": "^1.0.0"
   },
