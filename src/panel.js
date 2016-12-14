@@ -37,7 +37,7 @@ export default class Panel {
         '-webkit-overflow-scrolling': 'touch'
       });
 
-    this._handleSubmit = (event) => event.preventDefault();
+    this._handleSubmit = (submitEvent) => submitEvent.preventDefault();
     this._bind();
   }
 
