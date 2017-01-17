@@ -5,10 +5,10 @@ import 'd3-selection-multi';
 
 export default class Panel {
   constructor() {
-    this._footer = null;
     this._header = null;
-    this._message = null;
+    this._footer = null;
     this._lock = null;
+    this._message = null;
 
     this._root = select('body')
       .append('form')
@@ -44,35 +44,76 @@ export default class Panel {
   destroy() {
     this._unbind();
 
-    if (this._footer) {
-      this._footer.destroy();
-      this._footer = null;
-    }
-
-    if (this._header) {
-      this._header.destroy();
-      this._header = null;
-    }
-
-    if (this._message) {
-      this.append(this._message, false);
-      this._message = null;
-    }
+    this._deleteHeader();
+    this._deleteFooter();
+    this._deleteMessage();
 
     this._root.dispatch('destroy');
     this._root.remove();
     this._root = null;
   }
 
-  body() {
-    return this._body;
-  }
-
   root() {
     return this._root;
   }
 
-  append(element, action) {
+  body() {
+    return this._body;
+  }
+
+  header(action = true) {
+    if (action === false) {
+      return this._deleteHeader();
+    }
+
+    if (!this._header) {
+      this._insertHeader();
+    }
+
+    return this._header;
+  }
+
+  footer(action = true) {
+    if (action === false) {
+      return this._deleteFooter();
+    }
+
+    if (!this._footer) {
+      this._insertFooter();
+    }
+
+    return this._footer;
+  }
+
+  lock(value) {
+    if (value === false) {
+      return this._deleteLock();
+    }
+
+    if (!this._lock) {
+      this._insertLock();
+    }
+
+    return this._lock;
+  }
+
+  message(value = null) {
+    if (value === null) {
+      return this._message;
+    }
+
+    if (value === false) {
+      return this._deleteMessage();
+    }
+
+    if (this._message) {
+      return this._updateMessage(value);
+    }
+
+    return this._insertMessage(value);
+  }
+
+  append(element, action = true) {
     if (action === true) {
       this._body.node().appendChild(element.root().node());
     } else if (action === false) {
@@ -82,44 +123,15 @@ export default class Panel {
     return this;
   }
 
-  footer(action) {
-    if (typeof action === 'undefined') {
-      return this._footer;
-    }
-
-    if (action === false) {
-      this._footer.destroy();
-      this._footer = null;
-
-      return this;
-    }
-
-    this._footer = controlBar();
-
-    this._footer.root()
-      .classed('footer', true)
-      .styles({
-        'border-top': '1px solid #CCC',
-        'order': 3
-      });
-
-    this._root.node().appendChild(this._footer.root().node());
-
-    return this;
+  _bind() {
+    this._root.node().addEventListener('submit', this._handleSubmit);
   }
 
-  header(action) {
-    if (typeof action === 'undefined') {
-      return this._header;
-    }
+  _unbind() {
+    this._root.node().removeEventListener('submit', this._handleSubmit);
+  }
 
-    if (action === false) {
-      this._header.destroy();
-      this._header = null;
-
-      return this;
-    }
-
+  _insertHeader() {
     this._header = controlBar();
 
     this._header.root()
@@ -134,55 +146,37 @@ export default class Panel {
     return this;
   }
 
-  message(value) {
-    if (typeof value === 'undefined') {
-      return this._message;
+  _deleteHeader() {
+    if (this._header) {
+      this._header.destroy();
+      this._header = null;
     }
-
-    if (value === false) {
-      if (this._message) {
-        this.append(this._message, false);
-        this._message = null;
-        this._body.style('overflow', 'auto');
-      }
-
-      return this;
-    }
-
-    if (this._message) {
-      this._message.text(value);
-      return this;
-    }
-
-    this._body.style('overflow', 'hidden');
-    this._message = new Message().text(value);
-    this.append(this._message, true);
 
     return this;
   }
 
-  lock(value) {
-    if (typeof value === 'undefined') {
-      return this._lock;
-    }
+  _insertFooter() {
+    this._footer = controlBar();
 
-    if (value === false) {
-      return this._deleteLock();
-    }
+    this._footer.root()
+      .classed('footer', true)
+      .styles({
+        'border-top': '1px solid #CCC',
+        'order': 3
+      });
 
-    if (this._lock) {
-      return this;
-    }
+    this._root.node().appendChild(this._footer.root().node());
 
-    return this._insertLock();
+    return this;
   }
 
-  _bind() {
-    this._root.node().addEventListener('submit', this._handleSubmit);
-  }
+  _deleteFooter() {
+    if (this._footer) {
+      this._footer.destroy();
+      this._footer = null;
+    }
 
-  _unbind() {
-    this._root.node().removeEventListener('submit', this._handleSubmit);
+    return this;
   }
 
   _insertLock() {
@@ -204,6 +198,29 @@ export default class Panel {
     if (this._lock) {
       this._lock.remove();
       this._lock = null;
+    }
+
+    return this;
+  }
+
+  _insertMessage(text) {
+    this._body.style('overflow', 'hidden');
+    this._message = new Message().text(text);
+    this.append(this._message);
+
+    return this;
+  }
+
+  _updateMessage(text) {
+    this._message.text(text);
+    return this;
+  }
+
+  _deleteMessage() {
+    if (this._message) {
+      this.append(this._message, false);
+      this._message = null;
+      this._body.style('overflow', 'auto');
     }
 
     return this;
