@@ -1,5 +1,5 @@
 import { select } from 'd3-selection';
-import { controlBar } from '@scola/d3-generic';
+import { mainBar } from '@scola/d3-control';
 import Message from './message';
 import 'd3-selection-multi';
 
@@ -31,7 +31,6 @@ export default class Panel {
       .styles({
         'background': '#EEE',
         'flex': 1,
-        'order': 2,
         'overflow': 'auto',
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
@@ -132,16 +131,16 @@ export default class Panel {
   }
 
   _insertHeader() {
-    this._header = controlBar();
+    this._header = mainBar();
 
     this._header.root()
       .classed('header', true)
       .styles({
-        'border-bottom': '1px solid #CCC',
-        'order': 1
+        'border-bottom': '1px solid #CCC'
       });
 
-    this._root.node().appendChild(this._header.root().node());
+    this._root.node()
+      .insertBefore(this._header.root().node(), this._body.node());
 
     return this;
   }
@@ -156,16 +155,16 @@ export default class Panel {
   }
 
   _insertFooter() {
-    this._footer = controlBar();
+    this._footer = mainBar();
 
     this._footer.root()
       .classed('footer', true)
       .styles({
-        'border-top': '1px solid #CCC',
-        'order': 3
+        'border-top': '1px solid #CCC'
       });
 
-    this._root.node().appendChild(this._footer.root().node());
+    this._root.node()
+      .appendChild(this._footer.root().node());
 
     return this;
   }
