@@ -1,4 +1,6 @@
 import { select } from 'd3-selection';
+import Resizer from 'element-resize-detector';
+import debounce from 'lodash-es/debounce';
 import { controlBar } from '@scola/d3-control';
 import Message from './message';
 import 'd3-selection-multi';
@@ -9,6 +11,10 @@ export default class Panel {
     this._footer = null;
     this._lock = null;
     this._message = null;
+
+    this._resizer = Resizer({
+      callOnAdd: false
+    });
 
     this._root = select('body')
       .append('form')
@@ -37,12 +43,16 @@ export default class Panel {
         '-webkit-overflow-scrolling': 'touch'
       });
 
-    this._handleSubmit = (submitEvent) => submitEvent.preventDefault();
-    this._bind();
+    this._handleResize = debounce(() => this._resize(), 100);
+    this._handleSubmit = (e) => this._submit(e);
+
+    this._bindRoot();
+    this._bindResizer();
   }
 
   destroy() {
-    this._unbind();
+    this._unbindRoot();
+    this._unbindResizer();
 
     this._deleteHeader();
     this._deleteFooter();
@@ -121,12 +131,28 @@ export default class Panel {
     return this._insertChild(child);
   }
 
-  _bind() {
+  _bindRoot() {
     this._root.node().addEventListener('submit', this._handleSubmit);
   }
 
-  _unbind() {
+  _unbindRoot() {
     this._root.node().removeEventListener('submit', this._handleSubmit);
+  }
+
+  _unbindResizer() {
+    this._resizer.uninstall(this._root.node());
+  }
+
+  _bindResizer() {
+    this._resizer.listenTo(this._root.node(), this._handleResize);
+  }
+
+  _resize() {
+    this._root.dispatch('resize');
+  }
+
+  _submit(event) {
+    event.preventDefault();
   }
 
   _insertHeader() {

@@ -10,6 +10,7 @@
   "dependencies": {
     "@scola/d3-generic": "^1.1.0",
     "d3-selection": "^1.0.3",
-    "d3-selection-multi": "^1.0.0"
+    "d3-selection-multi": "^1.0.0",
+    "element-resize-detector": "^1.1.10"
   }
 }
