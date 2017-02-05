@@ -58,6 +58,9 @@ export default class Panel {
     this._deleteFooter();
     this._deleteMessage();
 
+    this._handleResize.cancel();
+    this._handleResize = null;
+
     this._root.dispatch('destroy');
     this._root.remove();
     this._root = null;
