@@ -1,5 +1,5 @@
 import { select } from 'd3-selection';
-import { mainBar } from '@scola/d3-control';
+import { controlBar } from '@scola/d3-control';
 import Message from './message';
 import 'd3-selection-multi';
 
@@ -32,6 +32,7 @@ export default class Panel {
         'background': '#EEE',
         'flex': 1,
         'overflow': 'auto',
+        'padding-top': '3em',
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
       });
@@ -112,14 +113,12 @@ export default class Panel {
     return this._insertMessage(value);
   }
 
-  append(element, action = true) {
-    if (action === true) {
-      this._body.node().appendChild(element.root().node());
-    } else if (action === false) {
-      element.root().remove();
+  append(child, action = true) {
+    if (action === false) {
+      return this._deleteChild(child);
     }
 
-    return this;
+    return this._insertChild(child);
   }
 
   _bind() {
@@ -131,7 +130,7 @@ export default class Panel {
   }
 
   _insertHeader() {
-    this._header = mainBar();
+    this._header = controlBar();
 
     this._header.root()
       .classed('header', true)
@@ -155,7 +154,7 @@ export default class Panel {
   }
 
   _insertFooter() {
-    this._footer = mainBar();
+    this._footer = controlBar();
 
     this._footer.root()
       .classed('footer', true)
@@ -223,5 +222,17 @@ export default class Panel {
     }
 
     return this;
+  }
+
+  _insertChild(child) {
+    this._body.node()
+      .appendChild(child.root().node());
+
+    return child;
+  }
+
+  _deleteChild(child) {
+    child.root().remove();
+    return child;
   }
 }
