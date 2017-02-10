@@ -1,9 +1,7 @@
-import { select } from 'd3-selection';
+import { select } from 'd3';
 import Resizer from 'element-resize-detector';
 import debounce from 'lodash-es/debounce';
 import { controlBar } from '@scola/d3-control';
-import Message from './message';
-import 'd3-selection-multi';
 
 export default class Panel {
   constructor() {
@@ -231,9 +229,29 @@ export default class Panel {
   }
 
   _insertMessage(text) {
-    this._body.style('overflow', 'hidden');
-    this._message = new Message().text(text);
-    this.append(this._message);
+    this._body
+      .style('overflow', 'hidden');
+
+    this._message = this._body
+      .append('div')
+      .classed('scola message', true)
+      .styles({
+        'align-items': 'center',
+        'background': 'inherit',
+        'color': '#AAA',
+        'display': 'flex',
+        'font-size': '2em',
+        'height': '100%',
+        'left': 0,
+        'justify-content': 'center',
+        'padding': '0 0.5em',
+        'text-align': 'center',
+        'top': 0,
+        'position': 'absolute',
+        'width': '100%',
+        'z-index': 1
+      })
+      .text(text);
 
     return this;
   }
@@ -245,9 +263,11 @@ export default class Panel {
 
   _deleteMessage() {
     if (this._message) {
-      this.append(this._message, false);
+      this._body
+        .style('overflow', 'auto');
+
+      this._message.remove();
       this._message = null;
-      this._body.style('overflow', 'auto');
     }
 
     return this;
