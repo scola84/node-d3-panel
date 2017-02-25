@@ -7,7 +7,6 @@ export default class Panel {
   constructor() {
     this._header = null;
     this._footer = null;
-    this._lock = null;
     this._message = null;
 
     this._resizer = Resizer({
@@ -96,18 +95,6 @@ export default class Panel {
     return this._footer;
   }
 
-  lock(value) {
-    if (value === false) {
-      return this._deleteLock();
-    }
-
-    if (!this._lock) {
-      this._insertLock();
-    }
-
-    return this._lock;
-  }
-
   message(value = null) {
     if (value === null) {
       return this._message;
@@ -141,11 +128,11 @@ export default class Panel {
   }
 
   _unbindResizer() {
-    this._resizer.uninstall(this._root.node());
+    this._resizer.uninstall(this._body.node());
   }
 
   _bindResizer() {
-    this._resizer.listenTo(this._root.node(), this._handleResize);
+    this._resizer.listenTo(this._body.node(), this._handleResize);
   }
 
   _resize() {
@@ -189,8 +176,8 @@ export default class Panel {
         'border-top': '1px solid #CCC'
       });
 
-    this._root.node()
-      .appendChild(this._footer.root().node());
+    this._root
+      .append(() => this._footer.root().node());
 
     return this;
   }
@@ -199,30 +186,6 @@ export default class Panel {
     if (this._footer) {
       this._footer.destroy();
       this._footer = null;
-    }
-
-    return this;
-  }
-
-  _insertLock() {
-    this._lock = this._root
-      .append('div')
-      .classed('scola lock', true)
-      .styles({
-        'bottom': 0,
-        'left': 0,
-        'position': 'absolute',
-        'right': 0,
-        'top': 0
-      });
-
-    return this;
-  }
-
-  _deleteLock() {
-    if (this._lock) {
-      this._lock.remove();
-      this._lock = null;
     }
 
     return this;
@@ -274,9 +237,7 @@ export default class Panel {
   }
 
   _insertChild(child) {
-    this._body.node()
-      .appendChild(child.root().node());
-
+    this._body.append(() => child.root().node());
     return child;
   }
 
