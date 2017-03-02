@@ -19,23 +19,34 @@ export default class Panel {
       .classed('scola panel', true)
       .attrs({
         'method': 'POST'
-      })
+      });
+
+    this._fieldset = this._root
+      .append('fieldset')
+      .styles({
+        'border': 0,
+        'margin': 0,
+        'padding': 0
+      });
+
+    this._wrapper = this._fieldset
+      .append('div')
       .styles({
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100%',
         'position': 'absolute',
-        'width': '100%'
+        'width': '100%',
       });
 
-    this._body = this._root
+    this._body = this._wrapper
       .append('div')
       .classed('scola body', true)
       .styles({
         'background': '#EEE',
         'flex': 1,
         'overflow': 'auto',
-        'padding-top': '3em',
+        'padding': '3em 0 0 0',
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
       });
@@ -119,6 +130,16 @@ export default class Panel {
     return this._insertChild(child);
   }
 
+  disable() {
+    this._fieldset.attr('disabled', 'disabled');
+    return this;
+  }
+
+  enable() {
+    this._fieldset.attr('disabled', null);
+    return this;
+  }
+
   _bindRoot() {
     this._root.node().addEventListener('submit', this._handleSubmit);
   }
@@ -152,7 +173,7 @@ export default class Panel {
         'border-bottom': '1px solid #CCC'
       });
 
-    this._root.node()
+    this._wrapper.node()
       .insertBefore(this._header.root().node(), this._body.node());
 
     return this;
@@ -176,7 +197,7 @@ export default class Panel {
         'border-top': '1px solid #CCC'
       });
 
-    this._root
+    this._wrapper
       .append(() => this._footer.root().node());
 
     return this;
