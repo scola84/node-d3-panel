@@ -19,6 +19,11 @@ export default class Panel {
       .classed('scola panel', true)
       .attrs({
         'method': 'POST'
+      })
+      .styles({
+        'height': '100%',
+        'position': 'absolute',
+        'width': '100%'
       });
 
     this._fieldset = this._root
