@@ -1,5 +1,9 @@
 import Panel from './src/panel';
 
-export function panel() {
+function panel() {
   return new Panel();
 }
+
+export {
+  panel
+};
