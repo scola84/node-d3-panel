@@ -127,12 +127,12 @@ export default class Panel {
     return this._insertMessage(value);
   }
 
-  append(child, action = true) {
+  append(element, action = true) {
     if (action === false) {
-      return this._deleteChild(child);
+      return this._deleteElement(element);
     }
 
-    return this._insertChild(child);
+    return this._insertElement(element);
   }
 
   disable() {
@@ -262,13 +262,13 @@ export default class Panel {
     return this;
   }
 
-  _insertChild(child) {
-    this._body.append(() => child.root().node());
-    return child;
+  _insertElement(element) {
+    this._body.append(() => element.root().node());
+    return element;
   }
 
-  _deleteChild(child) {
-    child.root().remove();
-    return child;
+  _deleteElement(element) {
+    element.root().remove();
+    return element;
   }
 }
