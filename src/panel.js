@@ -2,12 +2,17 @@ import { select } from 'd3';
 import Resizer from 'element-resize-detector';
 import debounce from 'lodash-es/debounce';
 import { controlBar } from '@scola/d3-control';
+import { Observer } from '@scola/d3-model';
 
-export default class Panel {
+export default class Panel extends Observer {
   constructor() {
+    super();
+
     this._header = null;
     this._footer = null;
     this._message = null;
+
+    this._disabled = false;
 
     this._resizer = Resizer({
       callOnAdd: false
@@ -87,6 +92,17 @@ export default class Panel {
     return this._body;
   }
 
+  disabled(value = null) {
+    if (value === null) {
+      return this._disabled;
+    }
+
+    this._disabled = value;
+    this._root.classed('disabled', value);
+
+    return this;
+  }
+
   header(action = true) {
     if (action === false) {
       return this._deleteHeader();
@@ -135,16 +151,6 @@ export default class Panel {
     return this._insertElement(element);
   }
 
-  disable() {
-    this._fieldset.attr('disabled', 'disabled');
-    return this;
-  }
-
-  enable() {
-    this._fieldset.attr('disabled', null);
-    return this;
-  }
-
   _bindRoot() {
     this._root.node().addEventListener('submit', this._handleSubmit);
   }
@@ -167,6 +173,10 @@ export default class Panel {
 
   _submit(event) {
     event.preventDefault();
+
+    if (this._disabled === false && this._model) {
+      this._model.set(this._name, this._value);
+    }
   }
 
   _insertHeader() {
