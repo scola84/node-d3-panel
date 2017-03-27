@@ -108,7 +108,7 @@ export default class Panel extends Observer {
       return this._deleteHeader();
     }
 
-    if (!this._header) {
+    if (this._header === null) {
       this._insertHeader();
     }
 
@@ -120,7 +120,7 @@ export default class Panel extends Observer {
       return this._deleteFooter();
     }
 
-    if (!this._footer) {
+    if (this._footer === null) {
       this._insertFooter();
     }
 
