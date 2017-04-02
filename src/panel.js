@@ -56,7 +56,7 @@ export default class Panel extends Observer {
         'background': '#EEE',
         'flex': 1,
         'overflow': 'auto',
-        'padding': '3em 0 0 0',
+        'padding': '2em 0 0 0',
         'position': 'relative',
         '-webkit-overflow-scrolling': 'touch'
       });
