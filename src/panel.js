@@ -69,6 +69,8 @@ export default class Panel extends Observer {
   }
 
   destroy() {
+    super.destroy();
+
     this._unbindRoot();
     this._unbindResizer();
 
