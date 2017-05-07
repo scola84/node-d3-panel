@@ -54,7 +54,7 @@ export default class Panel extends Observer {
       .classed('scola body', true)
       .styles({
         'background': '#EEE',
-        'flex': 1,
+        'flex': 'auto',
         'overflow': 'auto',
         'padding': '2em 0 0 0',
         'position': 'relative',
