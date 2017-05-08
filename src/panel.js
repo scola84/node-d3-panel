@@ -12,6 +12,9 @@ export default class Panel extends Observer {
     this._footer = null;
     this._message = null;
 
+    this._height = 0;
+    this._width = 0;
+
     this._disabled = false;
 
     this._resizer = Resizer({
@@ -170,7 +173,19 @@ export default class Panel extends Observer {
   }
 
   _resize() {
-    this._root.dispatch('resize');
+    const height = parseFloat(this._body.style('height'));
+    const width = parseFloat(this._body.style('width'));
+
+    const changed =
+      this._height !== height ||
+      this._width !== width;
+
+    this._height = height;
+    this._width = width;
+
+    this._root.dispatch('resize', {
+      detail: changed
+    });
   }
 
   _submit(event) {
