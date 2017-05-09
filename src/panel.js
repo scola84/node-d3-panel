@@ -173,8 +173,8 @@ export default class Panel extends Observer {
   }
 
   _resize() {
-    const height = parseFloat(this._body.style('height'));
-    const width = parseFloat(this._body.style('width'));
+    const height = this._body.height();
+    const width = this._body.width();
 
     const changed =
       this._height !== height ||
