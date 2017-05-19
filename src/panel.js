@@ -174,8 +174,8 @@ export default class Panel extends Observer {
   }
 
   _resize() {
-    const height = this._body.height();
-    const width = this._body.width();
+    const height = this._body.boundingRect('height');
+    const width = this._body.boundingRect('width');
 
     const changed =
       this._height !== height ||
