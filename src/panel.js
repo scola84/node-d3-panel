@@ -26,7 +26,8 @@ export default class Panel extends Observer {
       .remove()
       .classed('scola panel', true)
       .attrs({
-        'method': 'POST'
+        'method': 'POST',
+        'novalidate': 'novalidate'
       })
       .styles({
         'height': '100%',
