@@ -58,7 +58,7 @@ export default class Panel extends Observer {
       .classed('scola body', true)
       .styles({
         'background': '#EEE',
-        'flex': 'auto',
+        'flex': '1 1 0%',
         'overflow': 'auto',
         'padding': '2em 0 0 0',
         'position': 'relative',
@@ -165,12 +165,12 @@ export default class Panel extends Observer {
     this._root.node().removeEventListener('submit', this._handleSubmit);
   }
 
-  _unbindResizer() {
-    this._resizer.uninstall(this._body.node());
-  }
-
   _bindResizer() {
     this._resizer.listenTo(this._body.node(), this._handleResize);
+  }
+
+  _unbindResizer() {
+    this._resizer.uninstall(this._body.node());
   }
 
   _resize() {
