@@ -247,26 +247,22 @@ export default class Panel extends Observer {
 
   _insertMessage(text) {
     this._body
-      .style('overflow', 'hidden');
+      .style('display', 'none');
 
-    this._message = this._body
+    this._message = this._wrapper
       .append('div')
       .classed('scola message', true)
       .styles({
         'align-items': 'center',
-        'background': 'inherit',
+        'background': '#EEE',
         'color': '#AAA',
         'display': 'flex',
+        'flex': '1 1 0%',
         'font-size': '2em',
-        'height': '100%',
-        'left': 0,
         'justify-content': 'center',
         'padding': '0 0.5em',
-        'text-align': 'center',
-        'top': 0,
-        'position': 'absolute',
-        'width': '100%',
-        'z-index': 1
+        'position': 'relative',
+        'text-align': 'center'
       })
       .text(text);
 
@@ -281,7 +277,7 @@ export default class Panel extends Observer {
   _deleteMessage() {
     if (this._message) {
       this._body
-        .style('overflow', 'auto');
+        .style('display', null);
 
       this._message.remove();
       this._message = null;
