@@ -106,6 +106,14 @@ export default class Panel extends Observer {
     this._disabled = value;
     this._root.classed('disabled', value);
 
+    if (this._footer !== null) {
+      this._footer.disabled(value);
+    }
+
+    if (this._header !== null) {
+      this._header.disabled(value);
+    }
+
     return this;
   }
 
