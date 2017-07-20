@@ -45,6 +45,7 @@ export default class Panel extends Observer {
 
     this._wrapper = this._fieldset
       .append('div')
+      .classed('scola wrapper', true)
       .styles({
         'display': 'flex',
         'flex-direction': 'column',
